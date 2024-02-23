@@ -2,21 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookType } from "../types/types";
+import { BookType, User } from "../types/types";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type BookProps = {
   book: BookType;
   isPurchased: boolean;
+  user: User;
 };
 
 // eslint-disable-next-line react/display-name
-const Book = ({ book, isPurchased }: BookProps) => {
+const Book = ({ book, isPurchased, user }: BookProps) => {
   const [shoModal, setShowModal] = useState(false);
-  const { data: session } = useSession();
-  const user: any = session?.user;
+  // const { data: session } = useSession();
+  // const user: any = session?.user;
   const router = useRouter();
 
   const startCheckout = async () => {
@@ -105,7 +106,7 @@ const Book = ({ book, isPurchased }: BookProps) => {
           </div>
         </a>
         {shoModal && (
-          <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-900 bg-opacity-50 flex justify-center items-center modal">
+          <div className="fixed top-0 left-0 right-0 bottom-0 bg-slate-900 bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-8 rounded-lg">
               <h3 className="text-xl mb-4">本を購入しますか？</h3>
               <button
